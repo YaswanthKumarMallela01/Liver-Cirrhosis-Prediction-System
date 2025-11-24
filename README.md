@@ -19,11 +19,11 @@ The objective of this system is to leverage data analytics and supervised learni
 ---
 
 ## Repository Structure
-├── Data/
-├── Training/
-├── Flask/
-├── .idea/
-└── README.md
+├── Data/<br>
+├── Training/<br>
+├── Flask/<br>
+├── .idea/<br>
+└── README.md<br>
 
 ---
 
@@ -32,7 +32,7 @@ The objective of this system is to leverage data analytics and supervised learni
 - Pandas, NumPy
 - Scikit-Learn
 - Flask
-- Matplotlib / Seaborn (optional)
+- Matplotlib / Seaborn
 
 ---
 
