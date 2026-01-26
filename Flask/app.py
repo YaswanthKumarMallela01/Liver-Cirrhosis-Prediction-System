@@ -41,11 +41,12 @@ def predict():
             'index.html',
             prediction_text=label,
             confidence=f"{probability * 100:.2f}%",
-            health_tip=tip
+            health_tip=tip,
+            is_error=False
         )
 
     except Exception as e:
-        return render_template('index.html', prediction_text=f"❌ Error: {e}")
+        return render_template('index.html', prediction_text=f"❌ Error: {e}", is_error=True)
 
 if __name__ == "__main__":
     app.run(debug=True)
