@@ -3,8 +3,8 @@ import numpy as np
 from flask import Flask, render_template, request
 
 
-model = pickle.load(open("../Training/rf_acc_100.pkl", "rb"))
-normalizer = pickle.load(open("../Training/normalizer.pkl", "rb"))
+model = pickle.load(open("rf_acc_100.pkl", "rb"))
+normalizer = pickle.load(open("normalizer.pkl", "rb"))
 
 
 input_features = [
