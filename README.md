@@ -1,5 +1,7 @@
 # Liver Cirrhosis Prediction Web Application
 
+**Deployed Live App:** https://yashs-liver-cirrhosis-prediction-system-uvwq.onrender.com
+
 ## Project Description
 This project implements a web application using Flask to predict the likelihood of liver cirrhosis based on various health indicators. It leverages a machine learning model (RandomForestClassifier) trained on a comprehensive dataset of medical parameters. The application provides a user-friendly interface for inputting patient data and receiving real-time predictions, along with a confidence score and a health tip.
 
