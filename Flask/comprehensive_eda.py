@@ -204,10 +204,8 @@ def univariate_analysis(df, numeric_columns, categorical_columns):
             n_cols = 3
             n_rows = (len(valid_numeric_cols) + n_cols - 1) // n_cols
 
-
             fig, axes = plt.subplots(n_rows, n_cols, figsize=(18, 6 * n_rows))
             fig.suptitle('Distribution of Numerical Features', fontsize=16, fontweight='bold', y=0.98)
-
 
             if n_rows == 1:
                 axes = [axes] if n_cols == 1 else axes
@@ -218,11 +216,9 @@ def univariate_analysis(df, numeric_columns, categorical_columns):
                 if i < len(axes):
                     ax = axes[i]
 
-
                     col_data = df[col].dropna()
                     if len(col_data) > 0:
                         sns.histplot(data=df, x=col, kde=True, ax=ax, alpha=0.7)
-
 
                         mean_val = col_data.mean()
                         median_val = col_data.median()
@@ -237,7 +233,6 @@ def univariate_analysis(df, numeric_columns, categorical_columns):
                         ax.tick_params(axis='x', rotation=45, labelsize=8)
                         ax.tick_params(axis='y', labelsize=8)
 
-
             for i in range(len(valid_numeric_cols), len(axes)):
                 axes[i].set_visible(False)
 
@@ -245,12 +240,10 @@ def univariate_analysis(df, numeric_columns, categorical_columns):
             plt.subplots_adjust(top=0.93, hspace=0.4, wspace=0.3)
             plt.show()
 
-
             print("📊 Creating box plots for numerical features...")
 
             fig, axes = plt.subplots(n_rows, n_cols, figsize=(18, 6 * n_rows))
             fig.suptitle('Box Plots of Numerical Features', fontsize=16, fontweight='bold', y=0.98)
-
 
             if n_rows == 1:
                 axes = [axes] if n_cols == 1 else axes
@@ -279,7 +272,6 @@ def univariate_analysis(df, numeric_columns, categorical_columns):
                                 ha='center', va='center', transform=ax.transAxes)
                         ax.set_title(f'Box Plot of {col}', fontsize=11, pad=10)
 
-
             for i in range(len(valid_numeric_cols), len(axes)):
                 axes[i].set_visible(False)
 
@@ -287,10 +279,8 @@ def univariate_analysis(df, numeric_columns, categorical_columns):
             plt.subplots_adjust(top=0.93, hspace=0.4, wspace=0.3)
             plt.show()
 
-
     if categorical_columns:
         print("📊 Creating count plots for categorical features...")
-
 
         valid_cat_cols = []
         for col in categorical_columns[:8]:
@@ -305,7 +295,6 @@ def univariate_analysis(df, numeric_columns, categorical_columns):
 
             fig, axes = plt.subplots(n_rows, n_cols, figsize=(16, 5 * n_rows))
             fig.suptitle('Count Plots for Categorical Features', fontsize=16, fontweight='bold', y=0.98)
-
 
             if n_rows == 1:
                 axes = [axes] if n_cols == 1 else axes
@@ -323,7 +312,6 @@ def univariate_analysis(df, numeric_columns, categorical_columns):
                         ax.tick_params(axis='x', rotation=45, labelsize=8)
                         ax.tick_params(axis='y', labelsize=8)
 
-
                         total = len(df[col].dropna())
                         if total > 0:
                             for p in ax.patches:
@@ -337,7 +325,6 @@ def univariate_analysis(df, numeric_columns, categorical_columns):
                         ax.text(0.5, 0.5, f'Error plotting\n{col}',
                                 ha='center', va='center', transform=ax.transAxes)
                         ax.set_title(f'Count of {col}', fontsize=11, pad=10)
-
 
             for i in range(len(valid_cat_cols), len(axes)):
                 axes[i].set_visible(False)
@@ -356,7 +343,6 @@ def bivariate_analysis(df, numeric_columns):
         print("❌ Not enough numerical columns for bivariate analysis")
         return {}, {}
 
-
     valid_numeric_cols = []
     for col in numeric_columns:
         if col in df.columns:
@@ -368,10 +354,8 @@ def bivariate_analysis(df, numeric_columns):
         print("❌ Not enough valid numerical columns for bivariate analysis")
         return {}, {}
 
-
     print("🔗 Correlation Analysis:")
     correlation_matrix = df[valid_numeric_cols].corr()
-
 
     high_corr_pairs = []
     for i in range(len(correlation_matrix.columns)):
@@ -388,7 +372,6 @@ def bivariate_analysis(df, numeric_columns):
         print("\n🔗 Highly Correlated Feature Pairs (|correlation| > 0.5):")
         for pair in sorted(high_corr_pairs, key=lambda x: abs(x['Correlation']), reverse=True):
             print(f"   {pair['Feature 1']} ↔ {pair['Feature 2']}: {pair['Correlation']:.3f}")
-
 
     if high_corr_pairs:
         print("\n📊 Creating scatter plots for highly correlated pairs...")
@@ -425,13 +408,11 @@ def bivariate_analysis(df, numeric_columns):
                     ax.text(0.5, 0.5, f'Error: {str(e)[:20]}...', ha='center', va='center', transform=ax.transAxes)
                     ax.set_title(f'{x_col} vs {y_col}', fontsize=10)
 
-
         for i in range(len(top_pairs), len(axes)):
             axes[i].set_visible(False)
 
         plt.tight_layout()
         plt.show()
-
 
     print("\n🔍 Outlier Detection using IQR Method:")
     outlier_summary = {}
@@ -464,12 +445,10 @@ def bivariate_analysis(df, numeric_columns):
 
     return correlation_matrix, outlier_summary
 
-
 def multivariate_analysis(df, numeric_columns):
     """Activity 2.3: Multivariate Analysis"""
     print("\n🔗 ACTIVITY 2.3: MULTIVARIATE ANALYSIS")
     print("=" * 50)
-
 
     valid_numeric_cols = []
     for col in numeric_columns:
@@ -481,7 +460,6 @@ def multivariate_analysis(df, numeric_columns):
     if len(valid_numeric_cols) < 3:
         print("❌ Not enough valid numerical columns for multivariate analysis")
         return
-
 
     print("🌡️ Creating correlation heatmap...")
     correlation_matrix = df[valid_numeric_cols].corr()
@@ -506,11 +484,9 @@ def multivariate_analysis(df, numeric_columns):
     plt.tight_layout()
     plt.show()
 
-
     if len(valid_numeric_cols) >= 4:
         print("📊 Creating pairplot for selected features...")
         selected_features = valid_numeric_cols[:4]  # Select first 4 features
-
 
         pairplot_data = df[selected_features].replace([np.inf, -np.inf], np.nan).dropna()
 
@@ -528,7 +504,6 @@ def target_variable_analysis(df):
     print("\n🎯 TARGET VARIABLE ANALYSIS")
     print("=" * 50)
 
-
     target_candidates = [col for col in df.columns if any(keyword in col.lower()
                                                           for keyword in
                                                           ['target', 'outcome', 'predict', 'result', 'cirrhosis'])]
@@ -540,20 +515,16 @@ def target_variable_analysis(df):
     target_col = target_candidates[0]
     print(f"🎯 Target variable identified: {target_col}")
 
-
     print(f"\n📊 Target Variable Distribution:")
     target_counts = df[target_col].value_counts()
     print(target_counts)
 
-
     fig, axes = plt.subplots(1, 2, figsize=(12, 5))
-
 
     target_counts.plot(kind='bar', ax=axes[0])
     axes[0].set_title(f'Distribution of {target_col}')
     axes[0].set_ylabel('Count')
     axes[0].tick_params(axis='x', rotation=45)
-
 
     target_counts.plot(kind='pie', autopct='%1.1f%%', ax=axes[1])
     axes[1].set_title(f'Proportion of {target_col}')
@@ -570,14 +541,12 @@ def statistical_tests(df, numeric_columns, target_col=None):
     print("\n📊 STATISTICAL TESTS")
     print("=" * 50)
 
-
     valid_numeric_cols = []
     for col in numeric_columns[:5]:
         if col in df.columns:
             col_data = df[col].replace([np.inf, -np.inf], np.nan).dropna()
             if len(col_data) > 10:
                 valid_numeric_cols.append(col)
-
 
     print("🔍 Normality Tests (Shapiro-Wilk):")
     print("-" * 40)
@@ -602,7 +571,6 @@ def data_splitting_analysis(df, numeric_columns, target_col=None):
         print("❌ No target variable available for splitting")
         return
 
-
     valid_numeric_cols = []
     for col in numeric_columns:
         if col in df.columns and col != target_col and col != 'S.NO':
@@ -614,14 +582,12 @@ def data_splitting_analysis(df, numeric_columns, target_col=None):
         print("❌ No suitable features found for machine learning")
         return
 
-
     X = df[valid_numeric_cols].replace([np.inf, -np.inf], np.nan).fillna(df[valid_numeric_cols].median())
     y = df[target_col].fillna(df[target_col].mode().iloc[0] if not df[target_col].mode().empty else 0)
 
     print(f"📊 Features selected: {len(valid_numeric_cols)}")
     print(f"🎯 Target variable: {target_col}")
     print(f"📈 Dataset size: {len(X)} samples")
-
 
     try:
         X_train, X_test, y_train, y_test = train_test_split(
@@ -633,7 +599,6 @@ def data_splitting_analysis(df, numeric_columns, target_col=None):
         print(f"   Testing set: {X_test.shape[0]} samples ({X_test.shape[0] / len(X) * 100:.1f}%)")
         print(f"   Features: {X_train.shape[1]}")
 
-
         print(f"\n🔧 Feature Correlation with Target:")
         feature_target_corr = []
         for feature in valid_numeric_cols:
@@ -641,7 +606,6 @@ def data_splitting_analysis(df, numeric_columns, target_col=None):
                 corr = df[feature].corr(df[target_col])
                 if not np.isnan(corr):
                     feature_target_corr.append((feature, abs(corr)))
-
 
         feature_target_corr.sort(key=lambda x: x[1], reverse=True)
 
@@ -699,29 +663,21 @@ def main():
     if df is None:
         return
 
-
     missing_df = basic_data_info(df)
-
 
     df_clean, numeric_columns, categorical_columns = clean_and_preprocess_data(df)
 
-
     desc_stats = descriptive_statistics(df_clean, numeric_columns, categorical_columns)
-
 
     univariate_analysis(df_clean, numeric_columns, categorical_columns)
 
-
     correlation_matrix, outlier_summary = bivariate_analysis(df_clean, numeric_columns)
 
-
     multivariate_analysis(df_clean, numeric_columns)
-
 
     target_col = target_variable_analysis(df_clean)
 
     statistical_tests(df_clean, numeric_columns, target_col)
-
 
     split_results = data_splitting_analysis(df_clean, numeric_columns, target_col)
 

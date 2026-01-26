@@ -7,24 +7,15 @@ from sklearn.preprocessing import Normalizer
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import accuracy_score, classification_report
 
-df = pd.read_csv("Copy of HealthCareData.csv")
+df = pd.read_csv("../Data/Copy of HealthCareData.csv")
 df.columns = df.columns.str.strip()  # Remove surrounding spaces
 
-print("📋 Available Columns:")
+print("Available Columns (after stripping spaces):")
 print(df.columns.tolist())
 
 df.rename(columns={
     'Predicted Value(Out Come-Patient suffering from liver  cirrosis or not)': 'Target'
 }, inplace=True)
-
-df['A/G Ratio'] = (
-    df['A/G Ratio']
-    .astype(str)
-    .str.extract(r'([\d.]+)')[0]
-    .astype(str)
-    .str.rstrip('.')
-    .astype(float)
-)
 
 cat_map = {
     'positive': 1,
@@ -51,27 +42,36 @@ df.dropna(thresh=len(df) * 0.3, axis=1, inplace=True)
 df.fillna(df.median(numeric_only=True), inplace=True)
 
 
-drop_cols = ['S.NO', 'Place(location where the patient lives)', 'Type of alcohol consumed']
+drop_cols = ['S.NO', 'Place(location where the patient lives)', 'Type of alcohol consumed', 'Blood pressure (mmhg)', 'TCH', 'TG', 'LDL', 'HDL', 'Hemoglobin  (g/dl)', 'PCV  (%)', 'RBC  (million cells/microliter)', 'MCV   (femtoliters/cell)', 'MCH  (picograms/cell)', 'MCHC  (grams/deciliter)', 'Total Count', 'Polymorphs  (%)', 'Lymphocytes  (%)', 'Monocytes   (%)', 'Eosinophils   (%)', 'Basophils  (%)', 'Indirect     (mg/dl)', 'Globulin  (g/dl)']
 df.drop(columns=[col for col in drop_cols if col in df.columns], inplace=True)
 
 
 features = [
-    'Age',
-    'Gender',
-    'Total Bilirubin    (mg/dl)',
-    'Direct    (mg/dl)',
-    'AL.Phosphatase      (U/L)',
-    'SGPT/ALT (U/L)',
-    'SGOT/AST      (U/L)',
-    'Total Protein     (g/dl)',
-    'Albumin   (g/dl)',
-    'A/G Ratio'
+    "Age",
+    "Gender",
+    "Duration of alcohol consumption(years)",
+    "Quantity of alcohol consumption (quarters/day)",
+    "Hepatitis B infection",
+    "Hepatitis C infection",
+    "Diabetes Result",
+    "Obesity",
+    "Family history of cirrhosis/ hereditary",
+    "Platelet Count  (lakhs/mm)",
+    "Total Bilirubin    (mg/dl)",
+    "Direct    (mg/dl)",
+    "Total Protein     (g/dl)",
+    "Albumin   (g/dl)",
+    "A/G Ratio",
+    "AL.Phosphatase      (U/L)",
+    "SGOT/AST      (U/L)",
+    "SGPT/ALT (U/L)",
+    "USG Abdomen (diffuse liver or  not)"
 ]
 
 
 missing = [f for f in features if f not in df.columns]
 if missing:
-    raise Exception(f"❌ These required features are missing in the dataset: {missing}")
+    raise Exception(f"These required features are missing in the dataset: {missing}")
 
 
 X = df[features]
@@ -92,8 +92,8 @@ model.fit(X_train, y_train)
 y_pred = model.predict(X_test)
 acc = accuracy_score(y_test, y_pred)
 
-print(f"\n✅ Accuracy: {acc:.4f}")
-print("\n📋 Classification Report:")
+print(f"\nAccuracy: {acc:.4f}")
+print("\nClassification Report:")
 print(classification_report(y_test, y_pred))
 
 

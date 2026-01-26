@@ -10,9 +10,27 @@
     <div class="container">
         <h1>Liver Cirrhosis Predictor</h1>
         <form action="/predict" method="post">
-            {% for feature in ['Age', 'Gender', 'Total Bilirubin    (mg/dl)', 'Direct    (mg/dl)',
-                'AL.Phosphatase      (U/L)', 'SGPT/ALT (U/L)', 'SGOT/AST      (U/L)',
-                'Total Protein     (g/dl)', 'Albumin   (g/dl)', 'A/G Ratio'] %}
+            {% for feature in [
+                "Age",
+                "Gender",
+                "Duration of alcohol consumption(years)",
+                "Quantity of alcohol consumption (quarters/day)",
+                "Hepatitis B infection",
+                "Hepatitis C infection",
+                "Diabetes Result",
+                "Obesity",
+                "Family history of cirrhosis/ hereditary",
+                "Platelet Count  (lakhs/mm)",
+                "Total Bilirubin    (mg/dl)",
+                "Direct    (mg/dl)",
+                "Total Protein     (g/dl)",
+                "Albumin   (g/dl)",
+                "A/G Ratio",
+                "AL.Phosphatase      (U/L)",
+                "SGOT/AST      (U/L)",
+                "SGPT/ALT (U/L)",
+                "USG Abdomen (diffuse liver or  not)"
+            ] %}
                 <div class="form-group">
                     <label for="{{ feature }}">{{ feature }}</label>
                     <input type="text" name="{{ feature }}" id="{{ feature }}" required>
