@@ -44,9 +44,6 @@ Make sure you have Python (3.7+) and `pip` installed.
     ```
 3.  Open your web browser and go to `http://127.0.0.1:5000/` (or the address displayed in your terminal).
 
-## How to Deploy (e.g., on Render)
-This project is set up for easy deployment on platforms like Render. A `requirements.txt` file is included to manage dependencies. Refer to the previous conversation or Render's official documentation for detailed deployment steps.
-
 ## Model Metrics
 To get the latest model metrics (Accuracy and Classification Report) for your CV, run the following script:
 
