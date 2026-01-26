@@ -7,7 +7,7 @@ from sklearn.preprocessing import Normalizer
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import accuracy_score, classification_report
 
-df = pd.read_csv("../Data/Copy of HealthCareData.csv")
+df = pd.read_csv("Copy of HealthCareData.csv")
 df.columns = df.columns.str.strip()  # Remove surrounding spaces
 
 print("Available Columns (after stripping spaces):")
@@ -102,4 +102,4 @@ with open(f"rf_acc_{int(acc*100)}.pkl", "wb") as f:
 with open("normalizer.pkl", "wb") as f:
     pickle.dump(normalizer, f)
 
-print("✅ Model and normalizer saved.")
+print("Model and normalizer saved.")
