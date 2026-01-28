@@ -25,28 +25,58 @@ body {
 
 .header-content {
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.header-title {
+    flex: 1;
+    min-width: 300px;
+}
+
+.main-title {
+    font-size: 2.5em;
+    font-weight: 700;
+    background: linear-gradient(135deg, #007bff 0%, #28a745 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin: 0;
+    text-align: left;
+}
+
+.subtitle {
+    font-size: 1em;
+    color: #6c757d;
+    margin: 5px 0 0 0;
+    font-weight: 400;
+    font-style: italic;
 }
 
 .datetime-display {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     align-items: center;
-    gap: 5px;
+    gap: 20px;
+    flex-wrap: wrap;
+    justify-content: center;
 }
 
 .time {
-    font-size: 2.5em;
+    font-size: 2em;
     font-weight: 700;
     color: #007bff;
     letter-spacing: 2px;
+    white-space: nowrap;
 }
 
 .date {
     font-size: 1.1em;
     color: #495057;
     font-weight: 500;
+    white-space: nowrap;
 }
 
 .day {
@@ -55,6 +85,7 @@ body {
     font-weight: 400;
     text-transform: uppercase;
     letter-spacing: 1px;
+    white-space: nowrap;
 }
 
 .container {
@@ -75,6 +106,14 @@ h1 {
     margin-bottom: 30px;
     font-size: 2.2em;
     font-weight: 700;
+}
+
+.section-title {
+    text-align: center;
+    color: #007bff;
+    margin-bottom: 20px;
+    font-size: 1.8em;
+    font-weight: 600;
 }
 
 form {
@@ -130,7 +169,8 @@ button:hover {
 }
 
 .result {
-    margin-top: 30px;
+    margin-top: 0;
+    margin-bottom: 30px;
     padding: 25px;
     border-left: 6px solid #28a745; /* Success color */
     background-color: #e2f2e5;
@@ -250,8 +290,23 @@ button:hover {
         grid-template-columns: 1fr;
     }
     
-    .time {
+    .header-content {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .main-title {
+        text-align: center;
         font-size: 2em;
+    }
+    
+    .datetime-display {
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    .time {
+        font-size: 1.8em;
     }
     
     .date {
@@ -270,6 +325,10 @@ button:hover {
     
     h1 {
         font-size: 1.8em;
+    }
+    
+    .section-title {
+        font-size: 1.5em;
     }
 }
 

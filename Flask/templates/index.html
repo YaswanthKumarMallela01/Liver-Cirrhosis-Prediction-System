@@ -9,6 +9,10 @@
 <body>
     <header class="header">
         <div class="header-content">
+            <div class="header-title">
+                <h1 class="main-title">Yaswanth's Liver Care Hub</h1>
+                <p class="subtitle">AI-Powered Liver Cirrhosis Prediction System</p>
+            </div>
             <div class="datetime-display">
                 <div class="time" id="currentTime"></div>
                 <div class="date" id="currentDate"></div>
@@ -17,7 +21,15 @@
         </div>
     </header>
     <div class="container">
-        <h1>Liver Cirrhosis Predictor</h1>
+        {% if prediction_text %}
+            <div class="result{% if is_error %} error-message{% endif %}">
+                <h2>Prediction Result:</h2>
+                <p>{{ prediction_text }}</p>
+                <p><strong>Confidence:</strong> {{ confidence }}</p>
+                <p><strong>Health Tip:</strong> {{ health_tip }}</p>
+            </div>
+        {% endif %}
+        <h2 class="section-title">Liver Cirrhosis Predictor</h2>
         <button type="button" id="generateTestCases" style="background-color: #28a745; color: white; padding: 15px; border: none; border-radius: 8px; font-size: 1.1em; font-weight: 600; cursor: pointer; transition: background-color 0.3s ease, transform 0.2s ease; margin-bottom: 20px; width: 100%;">Generate Test cases</button>
         <form action="/predict" method="post">
             {% set placeholders = {
@@ -69,15 +81,6 @@
             {% endfor %}
             <button type="submit">Predict</button>
         </form>
-
-        {% if prediction_text %}
-            <div class="result{% if is_error %} error-message{% endif %}">
-                <h2>Prediction Result:</h2>
-                <p>{{ prediction_text }}</p>
-                <p><strong>Confidence:</strong> {{ confidence }}</p>
-                <p><strong>Health Tip:</strong> {{ health_tip }}</p>
-            </div>
-        {% endif %}
     </div>
     <footer class="footer">
         <div class="footer-content">
