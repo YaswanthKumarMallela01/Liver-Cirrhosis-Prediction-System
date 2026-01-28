@@ -9,6 +9,7 @@
 <body>
     <div class="container">
         <h1>Liver Cirrhosis Predictor</h1>
+        <button type="button" id="generateTestCases" style="background-color: #28a745; color: white; padding: 15px; border: none; border-radius: 8px; font-size: 1.1em; font-weight: 600; cursor: pointer; transition: background-color 0.3s ease, transform 0.2s ease; margin-bottom: 20px; width: 100%;">Generate Test cases</button>
         <form action="/predict" method="post">
             {% for feature in [
                 "Age",
@@ -48,5 +49,80 @@
             </div>
         {% endif %}
     </div>
+    <script>
+        // Add hover effect for generate button
+        document.getElementById('generateTestCases').addEventListener('mouseenter', function() {
+            this.style.backgroundColor = '#218838';
+            this.style.transform = 'translateY(-2px)';
+        });
+        document.getElementById('generateTestCases').addEventListener('mouseleave', function() {
+            this.style.backgroundColor = '#28a745';
+            this.style.transform = 'translateY(0)';
+        });
+        
+        document.getElementById('generateTestCases').addEventListener('click', function() {
+            // Randomly choose positive (1) or negative (0) case
+            const isPositive = Math.random() < 0.5;
+            
+            // Generate test data based on case type
+            let testData = {};
+            
+            if (isPositive) {
+                // Positive case (cirrhosis) - values indicating liver problems
+                testData = {
+                    "Age": Math.floor(Math.random() * 40) + 40, // 40-80
+                    "Gender": Math.random() < 0.6 ? 1 : 0, // More likely male
+                    "Duration of alcohol consumption(years)": Math.floor(Math.random() * 25) + 10, // 10-35 years
+                    "Quantity of alcohol consumption (quarters/day)": (Math.random() * 3 + 1).toFixed(2), // 1-4 quarters
+                    "Hepatitis B infection": Math.random() < 0.4 ? 1 : 0,
+                    "Hepatitis C infection": Math.random() < 0.5 ? 1 : 0,
+                    "Diabetes Result": Math.random() < 0.4 ? 1 : 0,
+                    "Obesity": Math.random() < 0.3 ? 1 : 0,
+                    "Family history of cirrhosis/ hereditary": Math.random() < 0.3 ? 1 : 0,
+                    "Platelet Count  (lakhs/mm)": (Math.random() * 1.5 + 0.5).toFixed(2), // Lower platelets (0.5-2.0)
+                    "Total Bilirubin    (mg/dl)": (Math.random() * 3 + 1.5).toFixed(2), // Elevated (1.5-4.5)
+                    "Direct    (mg/dl)": (Math.random() * 2 + 0.5).toFixed(2), // Elevated (0.5-2.5)
+                    "Total Protein     (g/dl)": (Math.random() * 1.5 + 5.5).toFixed(2), // Lower (5.5-7.0)
+                    "Albumin   (g/dl)": (Math.random() * 1.5 + 2.5).toFixed(2), // Lower albumin (2.5-4.0)
+                    "A/G Ratio": (Math.random() * 0.5 + 0.8).toFixed(2), // Lower ratio (0.8-1.3)
+                    "AL.Phosphatase      (U/L)": Math.floor(Math.random() * 200 + 150), // Elevated (150-350)
+                    "SGOT/AST      (U/L)": Math.floor(Math.random() * 150 + 80), // Elevated (80-230)
+                    "SGPT/ALT (U/L)": Math.floor(Math.random() * 120 + 70), // Elevated (70-190)
+                    "USG Abdomen (diffuse liver or  not)": Math.random() < 0.7 ? 1 : 0 // More likely diffuse liver
+                };
+            } else {
+                // Negative case (no cirrhosis) - normal/healthy values
+                testData = {
+                    "Age": Math.floor(Math.random() * 50) + 20, // 20-70
+                    "Gender": Math.random() < 0.5 ? 1 : 0,
+                    "Duration of alcohol consumption(years)": Math.floor(Math.random() * 10), // 0-10 years
+                    "Quantity of alcohol consumption (quarters/day)": (Math.random() * 1).toFixed(2), // 0-1 quarters
+                    "Hepatitis B infection": Math.random() < 0.1 ? 1 : 0, // Less likely
+                    "Hepatitis C infection": Math.random() < 0.1 ? 1 : 0, // Less likely
+                    "Diabetes Result": Math.random() < 0.15 ? 1 : 0,
+                    "Obesity": Math.random() < 0.2 ? 1 : 0,
+                    "Family history of cirrhosis/ hereditary": Math.random() < 0.1 ? 1 : 0, // Less likely
+                    "Platelet Count  (lakhs/mm)": (Math.random() * 2 + 1.5).toFixed(2), // Normal (1.5-3.5)
+                    "Total Bilirubin    (mg/dl)": (Math.random() * 1.2 + 0.2).toFixed(2), // Normal (0.2-1.4)
+                    "Direct    (mg/dl)": (Math.random() * 0.3 + 0.1).toFixed(2), // Normal (0.1-0.4)
+                    "Total Protein     (g/dl)": (Math.random() * 2 + 6.0).toFixed(2), // Normal (6.0-8.0)
+                    "Albumin   (g/dl)": (Math.random() * 1.5 + 3.5).toFixed(2), // Normal (3.5-5.0)
+                    "A/G Ratio": (Math.random() * 0.8 + 1.0).toFixed(2), // Normal (1.0-1.8)
+                    "AL.Phosphatase      (U/L)": Math.floor(Math.random() * 60 + 40), // Normal (40-100)
+                    "SGOT/AST      (U/L)": Math.floor(Math.random() * 30 + 10), // Normal (10-40)
+                    "SGPT/ALT (U/L)": Math.floor(Math.random() * 30 + 10), // Normal (10-40)
+                    "USG Abdomen (diffuse liver or  not)": Math.random() < 0.1 ? 1 : 0 // Less likely diffuse liver
+                };
+            }
+            
+            // Fill all input fields
+            for (const [feature, value] of Object.entries(testData)) {
+                const input = document.getElementById(feature);
+                if (input) {
+                    input.value = value;
+                }
+            }
+        });
+    </script>
 </body>
 </html>
