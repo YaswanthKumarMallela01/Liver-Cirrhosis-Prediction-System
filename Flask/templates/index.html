@@ -20,6 +20,27 @@
         <h1>Liver Cirrhosis Predictor</h1>
         <button type="button" id="generateTestCases" style="background-color: #28a745; color: white; padding: 15px; border: none; border-radius: 8px; font-size: 1.1em; font-weight: 600; cursor: pointer; transition: background-color 0.3s ease, transform 0.2s ease; margin-bottom: 20px; width: 100%;">Generate Test cases</button>
         <form action="/predict" method="post">
+            {% set placeholders = {
+                "Age": "Enter age in years (e.g., 45)",
+                "Gender": "Enter 1 for Male, 0 for Female",
+                "Duration of alcohol consumption(years)": "Years of alcohol consumption (e.g., 15)",
+                "Quantity of alcohol consumption (quarters/day)": "Quarters per day (e.g., 2.5)",
+                "Hepatitis B infection": "Enter 1 for Yes, 0 for No",
+                "Hepatitis C infection": "Enter 1 for Yes, 0 for No",
+                "Diabetes Result": "Enter 1 for Yes, 0 for No",
+                "Obesity": "Enter 1 for Yes, 0 for No",
+                "Family history of cirrhosis/ hereditary": "Enter 1 for Yes, 0 for No",
+                "Platelet Count  (lakhs/mm)": "Normal range: 1.5-3.5 (e.g., 2.5)",
+                "Total Bilirubin    (mg/dl)": "Normal: 0.2-1.4 mg/dl (e.g., 0.8)",
+                "Direct    (mg/dl)": "Normal: 0.1-0.4 mg/dl (e.g., 0.2)",
+                "Total Protein     (g/dl)": "Normal: 6.0-8.0 g/dl (e.g., 7.2)",
+                "Albumin   (g/dl)": "Normal: 3.5-5.0 g/dl (e.g., 4.5)",
+                "A/G Ratio": "Normal: 1.0-1.8 (e.g., 1.4)",
+                "AL.Phosphatase      (U/L)": "Normal: 40-100 U/L (e.g., 85)",
+                "SGOT/AST      (U/L)": "Normal: 10-40 U/L (e.g., 28)",
+                "SGPT/ALT (U/L)": "Normal: 10-40 U/L (e.g., 32)",
+                "USG Abdomen (diffuse liver or  not)": "Enter 1 for Diffuse liver, 0 for Normal"
+            } %}
             {% for feature in [
                 "Age",
                 "Gender",
@@ -43,7 +64,7 @@
             ] %}
                 <div class="form-group">
                     <label for="{{ feature }}">{{ feature }}</label>
-                    <input type="text" name="{{ feature }}" id="{{ feature }}" required>
+                    <input type="text" name="{{ feature }}" id="{{ feature }}" placeholder="{{ placeholders[feature] }}" required>
                 </div>
             {% endfor %}
             <button type="submit">Predict</button>
